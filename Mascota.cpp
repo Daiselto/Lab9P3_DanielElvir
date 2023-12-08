@@ -10,6 +10,10 @@ Mascota::Mascota(string _nombre, int _edad, int _hambre, int _vida) {
 	this->Vida = _vida;
 }
 
+Mascota::~Mascota()
+{
+}
+
 void Mascota::alimentar()
 {
 }

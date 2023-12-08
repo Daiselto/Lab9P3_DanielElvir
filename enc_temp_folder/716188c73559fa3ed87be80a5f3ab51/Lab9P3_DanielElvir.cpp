@@ -126,13 +126,13 @@ void escribirEnArchivo(Mascota* temp) {
     Gato* tempGato = dynamic_cast<Gato*>(temp);
     Pez* tempPez = dynamic_cast<Pez*>(temp);
     if (tempPerro != nullptr) {
-        archivo << "Perro," << tempPerro->getNombre() << "," << tempPerro->getEdad() << "," << tempPerro->getHambre() << "," << tempPerro->getVida() <<","<< tempPerro->getLealtad();
+        archivo << "Perro," << tempPerro->getNombre() << "," << tempPerro->getEdad() << "," << tempPerro->getHambre() << "," << tempPerro->getVida() << tempPerro->getLealtad();
     }
     if (tempGato != nullptr) {
         archivo << "Gato," << tempGato->getNombre() << "," << tempGato->getEdad() << "," << tempGato->getHambre() << "," << tempGato->getVida() <<","<< tempGato->getIndependencia();
     }
     if (tempPez != nullptr) {
-        archivo << "Pez," << tempPez->getNombre() << "," << tempPez->getEdad() << "," << tempPez->getHambre() << "," << tempPez->getVida() <<","<< tempPez->getNivelColorido();
+        archivo << "Pez," << tempPez->getNombre() << "," << tempPez->getEdad() << "," << tempPez->getHambre() << "," << tempPez->getVida() << tempPez->getNivelColorido();
     }
 }
 

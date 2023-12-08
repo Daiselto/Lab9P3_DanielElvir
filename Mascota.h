@@ -9,6 +9,7 @@ class Mascota {
 public:
 	Mascota();
 	Mascota(string _nombre, int _edad, int _hambre, int _vida);
+	virtual ~Mascota();
 	void alimentar();
 	void pasear();
 	void mostrarEstado();
