@@ -8,11 +8,10 @@ Pez::Pez(string _nombre, int _edad, int _hambre, int _vida, int _nivelColorido) 
 	this->NivelColorido = _nivelColorido;
 }
 
-void Pez::setNivelColorido(int _nivelColorido)
-{
+void Pez::setNivelColorido(int _nivelColorido) {
+	this->NivelColorido = _nivelColorido;
 }
 
-int Pez::getNivelColorido()
-{
-	return 0;
+int Pez::getNivelColorido() {
+	return NivelColorido;
 }

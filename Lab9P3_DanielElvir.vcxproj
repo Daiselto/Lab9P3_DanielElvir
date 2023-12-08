@@ -127,7 +127,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Gato.cpp" />
     <ClCompile Include="Lab9P3_DanielElvir.cpp" />
+    <ClCompile Include="Mascota.cpp" />
+    <ClCompile Include="Perro.cpp" />
+    <ClCompile Include="Pez.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Gato.h" />
+    <ClInclude Include="Mascota.h" />
+    <ClInclude Include="Perro.h" />
+    <ClInclude Include="Pez.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
