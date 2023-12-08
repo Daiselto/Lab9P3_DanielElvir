@@ -7,4 +7,3 @@ Perro,Hunter,2,40,60,90
 Pez,Goldie,0,25,55,78
 Gato,Stuart,6,42,58,77
 Pez,Dory,1,35,45,69
-Perro,Loki,20,10,558

@@ -16,6 +16,26 @@ static Mascota* nPerro;
 static Mascota* nGato;
 static Mascota* nPez;
 
+void listarGeneral() {
+    int cont = 0;
+    cout << "Mascotas:" << endl;
+    for (Mascota* wows : mascotas) {
+        Perro* tempPerro = dynamic_cast<Perro*>(wows);
+        Gato* tempGato = dynamic_cast<Gato*>(wows);
+        Pez* tempPez = dynamic_cast<Pez*>(wows);
+        if (tempPerro != nullptr) {
+            cout << ++cont << "- "<< tempPerro->getNombre() << endl;            
+        }
+        else if (tempGato != nullptr) {
+            cout << ++cont << "- " << tempGato->getNombre() << endl;
+        }
+        else if (tempPez != nullptr) {
+            cout << ++cont << "- " << tempPez->getNombre() << endl;
+        }
+
+    }
+}
+
 vector<string> mystrtok(string str, char delim) {
     vector<string> tokens;
     string temp = "";
@@ -125,14 +145,17 @@ void escribirEnArchivo(Mascota* temp) {
     Perro* tempPerro = dynamic_cast<Perro*>(temp);
     Gato* tempGato = dynamic_cast<Gato*>(temp);
     Pez* tempPez = dynamic_cast<Pez*>(temp);
+    if (mascotas[8]) {
+        cout << endl;
+    }
     if (tempPerro != nullptr) {
-        archivo << "Perro," << tempPerro->getNombre() << "," << tempPerro->getEdad() << "," << tempPerro->getHambre() << "," << tempPerro->getVida() <<","<< tempPerro->getLealtad();
+        archivo << "Perro," << tempPerro->getNombre() << "," << tempPerro->getEdad() << "," << tempPerro->getHambre() << "," << tempPerro->getVida() << "," << tempPerro->getLealtad() << endl;
     }
     if (tempGato != nullptr) {
-        archivo << "Gato," << tempGato->getNombre() << "," << tempGato->getEdad() << "," << tempGato->getHambre() << "," << tempGato->getVida() <<","<< tempGato->getIndependencia();
+        archivo << "Gato," << tempGato->getNombre() << "," << tempGato->getEdad() << "," << tempGato->getHambre() << "," << tempGato->getVida() <<","<< tempGato->getIndependencia() << endl;
     }
     if (tempPez != nullptr) {
-        archivo << "Pez," << tempPez->getNombre() << "," << tempPez->getEdad() << "," << tempPez->getHambre() << "," << tempPez->getVida() <<","<< tempPez->getNivelColorido();
+        archivo << "Pez," << tempPez->getNombre() << "," << tempPez->getEdad() << "," << tempPez->getHambre() << "," << tempPez->getVida() <<","<< tempPez->getNivelColorido() << endl;
     }
 }
 
@@ -258,8 +281,8 @@ void crearGato() {
         cin >> Independencia;
     }
     nGato = new Gato(Nombre, Edad, Hambre, Vida, Independencia);
-    mascotas.push_back(nPez);
-    escribirEnArchivo(nPez);
+    mascotas.push_back(nGato);
+    escribirEnArchivo(nGato);
 }
 
 void crearMascotas() {
@@ -289,6 +312,227 @@ void crearMascotas() {
 
 }
 
+void alimentarMascotas() {
+    if (mascotas.size() > 0) {
+        int indice;
+        listarGeneral();
+        cout << "Selecciona mascota a alimentar: ";
+        cin >> indice;
+        if (indice>=1&&indice<mascotas.size()) {
+            cout << "Atributos antes de alimentar" << endl;
+            Mascota* wows = mascotas[indice - 1];
+            Perro* tempPerro = dynamic_cast<Perro*>(wows);
+            Gato* tempGato = dynamic_cast<Gato*>(wows);
+            Pez* tempPez = dynamic_cast<Pez*>(wows);
+            if (tempPerro != nullptr) {
+                cout << "Perro" << endl;
+                cout << "Nombre: " << tempPerro->getNombre() << endl;
+                cout << "Edad: " << tempPerro->getEdad() << endl;
+                cout << "Hambre: " << tempPerro->getHambre() << endl;
+                cout << "Vida: " << tempPerro->getVida() << endl;
+                cout << "Lealtad: " << tempPerro->getLealtad() << endl;
+                cout << endl;
+            }
+            else if (tempGato != nullptr) {
+                cout << "Gato" << endl;
+                cout << "Nombre: " << tempGato->getNombre() << endl;
+                cout << "Edad: " << tempGato->getEdad() << endl;
+                cout << "Hambre: " << tempGato->getHambre() << endl;
+                cout << "Vida: " << tempGato->getVida() << endl;
+                cout << "Independencia: " << tempGato->getIndependencia() << endl;
+                cout << endl;
+            }
+            else if (tempPez != nullptr) {
+                cout << "Pez" << endl;
+                cout << "Nombre: " << tempPez->getNombre() << endl;
+                cout << "Edad: " << tempPez->getEdad() << endl;
+                cout << "Hambre: " << tempPez->getHambre() << endl;
+                cout << "Vida: " << tempPez->getVida() << endl;
+                cout << "Colorido: " << tempPez->getNivelColorido() << endl;
+                cout << endl;
+            }
+            cout << "Atributos despues de alimentar" << endl;
+            wows->alimentar();
+            tempPerro = dynamic_cast<Perro*>(wows);
+            tempGato = dynamic_cast<Gato*>(wows);
+            tempPez = dynamic_cast<Pez*>(wows);
+            if (tempPerro != nullptr) {
+                cout << "Perro" << endl;
+                cout << "Nombre: " << tempPerro->getNombre() << endl;
+                cout << "Edad: " << tempPerro->getEdad() << endl;
+                cout << "Hambre: " << tempPerro->getHambre() << endl;
+                cout << "Vida: " << tempPerro->getVida() << endl;
+                cout << "Lealtad: " << tempPerro->getLealtad() << endl;
+                cout << endl;
+            }
+            else if (tempGato != nullptr) {
+                cout << "Gato" << endl;
+                cout << "Nombre: " << tempGato->getNombre() << endl;
+                cout << "Edad: " << tempGato->getEdad() << endl;
+                cout << "Hambre: " << tempGato->getHambre() << endl;
+                cout << "Vida: " << tempGato->getVida() << endl;
+                cout << "Independencia: " << tempGato->getIndependencia() << endl;
+                cout << endl;
+            }
+            else if (tempPez != nullptr) {
+                cout << "Pez" << endl;
+                cout << "Nombre: " << tempPez->getNombre() << endl;
+                cout << "Edad: " << tempPez->getEdad() << endl;
+                cout << "Hambre: " << tempPez->getHambre() << endl;
+                cout << "Vida: " << tempPez->getVida() << endl;
+                cout << "Colorido: " << tempPez->getNivelColorido() << endl;
+                cout << endl;
+            }
+            delete tempPerro;
+            delete tempGato;
+            delete tempPez;
+        }
+        else {
+            cout << "Escogió una mascota no existente" << endl;
+            cout << "Regresando" << endl;
+        }
+    }
+    else {
+        cout << "Debe agregar mascotas para ingresar a esta opcion" << endl;
+    }
+}
+
+void pasearMascotas() {
+    if (mascotas.size() > 0) {
+        int indice;
+        listarGeneral();
+        cout << "Selecciona mascota a pasear: ";
+        cin >> indice;
+        if (indice >= 1 && indice < mascotas.size()) {
+            cout << "Atributos antes de pasear" << endl;
+            Mascota* wows = mascotas[indice - 1];
+            Perro* tempPerro = dynamic_cast<Perro*>(wows);
+            Gato* tempGato = dynamic_cast<Gato*>(wows);
+            Pez* tempPez = dynamic_cast<Pez*>(wows);
+            if (tempPerro != nullptr) {
+                cout << "Perro" << endl;
+                cout << "Nombre: " << tempPerro->getNombre() << endl;
+                cout << "Edad: " << tempPerro->getEdad() << endl;
+                cout << "Hambre: " << tempPerro->getHambre() << endl;
+                cout << "Vida: " << tempPerro->getVida() << endl;
+                cout << "Lealtad: " << tempPerro->getLealtad() << endl;
+                cout << endl;
+            }
+            else if (tempGato != nullptr) {
+                cout << "Gato" << endl;
+                cout << "Nombre: " << tempGato->getNombre() << endl;
+                cout << "Edad: " << tempGato->getEdad() << endl;
+                cout << "Hambre: " << tempGato->getHambre() << endl;
+                cout << "Vida: " << tempGato->getVida() << endl;
+                cout << "Independencia: " << tempGato->getIndependencia() << endl;
+                cout << endl;
+            }
+            else if (tempPez != nullptr) {
+                cout << "Pez" << endl;
+                cout << "Nombre: " << tempPez->getNombre() << endl;
+                cout << "Edad: " << tempPez->getEdad() << endl;
+                cout << "Hambre: " << tempPez->getHambre() << endl;
+                cout << "Vida: " << tempPez->getVida() << endl;
+                cout << "Colorido: " << tempPez->getNivelColorido() << endl;
+                cout << endl;
+            }
+            cout << "Atributos despues de pasear" << endl;
+            wows->pasear();
+            tempPerro = dynamic_cast<Perro*>(wows);
+            tempGato = dynamic_cast<Gato*>(wows);
+            tempPez = dynamic_cast<Pez*>(wows);
+            if (tempPerro != nullptr) {
+                cout << "Perro" << endl;
+                cout << "Nombre: " << tempPerro->getNombre() << endl;
+                cout << "Edad: " << tempPerro->getEdad() << endl;
+                cout << "Hambre: " << tempPerro->getHambre() << endl;
+                cout << "Vida: " << tempPerro->getVida() << endl;
+                cout << "Lealtad: " << tempPerro->getLealtad() << endl;
+                cout << endl;
+            }
+            else if (tempGato != nullptr) {
+                cout << "Gato" << endl;
+                cout << "Nombre: " << tempGato->getNombre() << endl;
+                cout << "Edad: " << tempGato->getEdad() << endl;
+                cout << "Hambre: " << tempGato->getHambre() << endl;
+                cout << "Vida: " << tempGato->getVida() << endl;
+                cout << "Independencia: " << tempGato->getIndependencia() << endl;
+                cout << endl;
+            }
+            else if (tempPez != nullptr) {
+                cout << "Pez" << endl;
+                cout << "Nombre: " << tempPez->getNombre() << endl;
+                cout << "Edad: " << tempPez->getEdad() << endl;
+                cout << "Hambre: " << tempPez->getHambre() << endl;
+                cout << "Vida: " << tempPez->getVida() << endl;
+                cout << "Colorido: " << tempPez->getNivelColorido() << endl;
+                cout << endl;
+            }
+            delete tempPerro;
+            delete tempGato;
+            delete tempPez;
+        }
+        else {
+            cout << "Escogió una mascota no existente" << endl;
+            cout << "Regresando" << endl;
+        }
+    }
+    else {
+        cout << "Debe agregar mascotas para ingresar a esta opcion" << endl;
+    }
+}
+
+void verEstadoMascota() {
+    if (mascotas.size() > 0) {
+        int indice;
+        listarGeneral();
+        cout << "Selecciona mascota a revisar: ";
+        cin >> indice;
+        if (indice >= 1 && indice <= mascotas.size()) {
+            Mascota* wows = mascotas[indice - 1];
+            Perro* tempPerro = dynamic_cast<Perro*>(wows);
+            Gato* tempGato = dynamic_cast<Gato*>(wows);
+            Pez* tempPez = dynamic_cast<Pez*>(wows);
+            if (tempPerro != nullptr) {
+                cout << "Perro" << endl;
+                cout << "Nombre: " << tempPerro->getNombre() << endl;
+                cout << "Edad: " << tempPerro->getEdad() << endl;
+                cout << "Hambre: " << tempPerro->getHambre() << endl;
+                cout << "Vida: " << tempPerro->getVida() << endl;
+                cout << "Lealtad: " << tempPerro->getLealtad() << endl;
+                tempPerro->mostrarEstado();
+                cout << endl;
+            }
+            else if (tempGato != nullptr) {
+                cout << "Gato" << endl;
+                cout << "Nombre: " << tempGato->getNombre() << endl;
+                cout << "Edad: " << tempGato->getEdad() << endl;
+                cout << "Hambre: " << tempGato->getHambre() << endl;
+                cout << "Vida: " << tempGato->getVida() << endl;
+                cout << "Independencia: " << tempGato->getIndependencia() << endl;
+                tempGato->mostrarEstado();
+                cout << endl;
+            }
+            else if (tempPez != nullptr) {
+                cout << "Pez" << endl;
+                cout << "Nombre: " << tempPez->getNombre() << endl;
+                cout << "Edad: " << tempPez->getEdad() << endl;
+                cout << "Hambre: " << tempPez->getHambre() << endl;
+                cout << "Vida: " << tempPez->getVida() << endl;
+                cout << "Colorido: " << tempPez->getNivelColorido() << endl;
+                tempPez->mostrarEstado();
+                cout << endl;
+            }
+            delete tempPerro;
+            delete tempGato;
+            delete tempPez;
+        }
+    }
+    else {
+        cout << "Debe agregar mascotas para ingresar a esta opcion" << endl;
+    }
+}
+
 void menu() {
     int opcion;
     bool seguir = true;
@@ -315,15 +559,21 @@ void menu() {
             crearMascotas();
             break;
         case 4:
+            alimentarMascotas();
             break;
         case 5:
+            pasearMascotas();
             break;
         case 6:
+            verEstadoMascota();
             break;
         case 0:
             cout << "Gracias por usar el Programa" << endl;
             cout << "Saliendo....";
             cout << endl;
+            for (int i = 0; i < mascotas.size(); i++) {
+                delete mascotas[i];
+            }
             seguir = false;
             break;
         default:
@@ -339,5 +589,12 @@ void menu() {
 int main() {
     setlocale(LC_ALL, "spanish");
     menu();
+    delete perro;
+    delete gato;
+    delete pez;
+    delete nPerro;
+    delete nPez;
+    delete nGato;
+    
 }
 
