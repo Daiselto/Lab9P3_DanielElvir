@@ -15,7 +15,7 @@ static Mascota* pez;
 static Mascota* nPerro;
 static Mascota* nGato;
 static Mascota* nPez;
-
+//Lista general para los metodos de alimentar, pasear y mostrar estado
 void listarGeneral() {
     int cont = 0;
     cout << "Mascotas:" << endl;
@@ -35,7 +35,7 @@ void listarGeneral() {
 
     }
 }
-
+//tokenizer propio con vectores
 vector<string> mystrtok(string str, char delim) {
     vector<string> tokens;
     string temp = "";
@@ -50,7 +50,7 @@ vector<string> mystrtok(string str, char delim) {
     tokens.push_back(temp);
     return tokens;
 }
-
+//Opcion de cargar mascotas donde se tokeniza linea por linea lo que está en el txt y le va creando nuevos objetos y mandandolos al vector
 void cargarMascotas() {
     ifstream archivo("Mascotas.txt", ios::in);
     string texto;
@@ -98,6 +98,7 @@ void cargarMascotas() {
     cout << "Mascotas cargadas exitosamente" << endl;
 }
 
+//listar mascotas del metodo listar
 void listarMascotas() {
     if (mascotas.size() > 0) {
         cout << "Mascotas existentes" << endl;
@@ -139,7 +140,7 @@ void listarMascotas() {
         cout << "Tiene que cargar las mascotas primero" << endl;
     }
 }
-
+//escribir archivo general para otros metodos
 void escribirEnArchivo(Mascota* temp) {
     ofstream archivo("Mascotas.txt", ios::app);
     Perro* tempPerro = dynamic_cast<Perro*>(temp);
@@ -159,6 +160,40 @@ void escribirEnArchivo(Mascota* temp) {
     }
 }
 
+void sobreescribirCambios() {
+    ofstream archivo("Mascotas.txt", ios::out);
+    for (Mascota* temp : mascotas) {
+        Perro* tempPerro = dynamic_cast<Perro*>(temp);
+        Gato* tempGato = dynamic_cast<Gato*>(temp);
+        Pez* tempPez = dynamic_cast<Pez*>(temp);
+        
+        if (tempPerro != nullptr) {
+            archivo << "Perro," << tempPerro->getNombre() << "," << tempPerro->getEdad() << "," << tempPerro->getHambre() << "," << tempPerro->getVida() << "," << tempPerro->getLealtad() << endl;
+        }
+        if (tempGato != nullptr) {
+            archivo << "Gato," << tempGato->getNombre() << "," << tempGato->getEdad() << "," << tempGato->getHambre() << "," << tempGato->getVida() << "," << tempGato->getIndependencia() << endl;
+        }
+        if (tempPez != nullptr) {
+            archivo << "Pez," << tempPez->getNombre() << "," << tempPez->getEdad() << "," << tempPez->getHambre() << "," << tempPez->getVida() << "," << tempPez->getNivelColorido() << endl;
+        }
+    }
+}
+
+void nuevoTXT(string nom, string cambio, int indice) {
+    nom += ".txt";
+
+    ofstream archivo(nom, ios::out);
+    if (cambio=="Alimento") {
+        archivo << "Alimento" << endl;
+        archivo << mascotas[indice - 1]->getNombre() << "," << mascotas[indice - 1]->getEdad() << "," << mascotas[indice - 1]->getHambre() << "," << mascotas[indice - 1]->getVida() << endl;
+    }
+    else if (cambio == "Paseo") {
+        archivo << "Paseo" << endl;
+        archivo << mascotas[indice - 1]->getNombre() << "," << mascotas[indice - 1]->getEdad() << "," << mascotas[indice - 1]->getHambre() << "," << mascotas[indice - 1]->getVida() << endl;
+    }
+           
+}
+//crearPerro, crearPez, y crearGato son casos de crear Mascotas que agrega nuevos metodos a Mascotas.txt
 void crearPerro() {
     string Nombre;
     int Edad;
@@ -318,7 +353,7 @@ void alimentarMascotas() {
         listarGeneral();
         cout << "Selecciona mascota a alimentar: ";
         cin >> indice;
-        if (indice>=1&&indice<mascotas.size()) {
+        if (indice >= 1 && indice <= mascotas.size()) {
             cout << "Atributos antes de alimentar" << endl;
             Mascota* wows = mascotas[indice - 1];
             Perro* tempPerro = dynamic_cast<Perro*>(wows);
@@ -383,9 +418,8 @@ void alimentarMascotas() {
                 cout << "Colorido: " << tempPez->getNivelColorido() << endl;
                 cout << endl;
             }
-            delete tempPerro;
-            delete tempGato;
-            delete tempPez;
+            nuevoTXT(wows->getNombre(), "Alimento", indice);
+        
         }
         else {
             cout << "Escogió una mascota no existente" << endl;
@@ -403,7 +437,7 @@ void pasearMascotas() {
         listarGeneral();
         cout << "Selecciona mascota a pasear: ";
         cin >> indice;
-        if (indice >= 1 && indice < mascotas.size()) {
+        if (indice >= 1 && indice <= mascotas.size()) {
             cout << "Atributos antes de pasear" << endl;
             Mascota* wows = mascotas[indice - 1];
             Perro* tempPerro = dynamic_cast<Perro*>(wows);
@@ -468,9 +502,7 @@ void pasearMascotas() {
                 cout << "Colorido: " << tempPez->getNivelColorido() << endl;
                 cout << endl;
             }
-            delete tempPerro;
-            delete tempGato;
-            delete tempPez;
+            nuevoTXT(wows->getNombre(), "Paseo", indice);
         }
         else {
             cout << "Escogió una mascota no existente" << endl;
@@ -523,9 +555,7 @@ void verEstadoMascota() {
                 tempPez->mostrarEstado();
                 cout << endl;
             }
-            delete tempPerro;
-            delete tempGato;
-            delete tempPez;
+           
         }
     }
     else {
@@ -571,9 +601,12 @@ void menu() {
             cout << "Gracias por usar el Programa" << endl;
             cout << "Saliendo....";
             cout << endl;
+            //Metodo para cambiar cosas de Mascotas.txt que pasaron en ejecución
+            sobreescribirCambios();
+            //liberar memoria de los elementos del vector
             for (int i = 0; i < mascotas.size(); i++) {
                 delete mascotas[i];
-            }
+            }            
             seguir = false;
             break;
         default:
@@ -588,13 +621,6 @@ void menu() {
 
 int main() {
     setlocale(LC_ALL, "spanish");
-    menu();
-    delete perro;
-    delete gato;
-    delete pez;
-    delete nPerro;
-    delete nPez;
-    delete nGato;
-    
+    menu();      
 }
 
