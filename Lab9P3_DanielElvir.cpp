@@ -9,9 +9,9 @@
 using namespace std;
 
 static vector<Mascota*> mascotas;
-static Mascota* perro;
-static Mascota* gato;
-static Mascota* pez;
+static Perro* perro;
+static Gato* gato;
+static Pez* pez;
 static Mascota* nPerro;
 static Mascota* nGato;
 static Mascota* nPez;
@@ -180,18 +180,28 @@ void sobreescribirCambios() {
 }
 
 void nuevoTXT(string nom, string cambio, int indice) {
-    nom += ".txt";
+    ofstream archivo;
+    string nombreArchivo;
+    nombreArchivo = mascotas[indice]->getNombre();
+    nombreArchivo += ".txt";
+    archivo.open(nombreArchivo, ios::app);
 
-    ofstream archivo(nom, ios::out);
-    if (cambio=="Alimento") {
-        archivo << "Alimento" << endl;
-        archivo << mascotas[indice - 1]->getNombre() << "," << mascotas[indice - 1]->getEdad() << "," << mascotas[indice - 1]->getHambre() << "," << mascotas[indice - 1]->getVida() << endl;
+    if (archivo.fail()) {
+        cout << "No se pudo abrir el archivo" << endl;
+        exit(1);
     }
-    else if (cambio == "Paseo") {
-        archivo << "Paseo" << endl;
-        archivo << mascotas[indice - 1]->getNombre() << "," << mascotas[indice - 1]->getEdad() << "," << mascotas[indice - 1]->getHambre() << "," << mascotas[indice - 1]->getVida() << endl;
+    perro = dynamic_cast<Perro*>(mascotas[indice]);
+    gato = dynamic_cast<Gato*>(mascotas[indice]);
+    pez = dynamic_cast<Pez*>(mascotas[indice]);
+    if (perro != nullptr) {
+        archivo << cambio << "\n" << perro->getNombre() << "," << perro->getEdad() << "," << perro->getHambre() << "," << perro->getVida() << "," << perro->getLealtad() << "\n";
     }
-           
+    else if (gato != nullptr) {
+        archivo << cambio << "\n" << gato->getNombre() << "," << gato->getEdad() << "," << gato->getHambre() << "," << gato->getVida() << "," << gato->getIndependencia() << "\n";
+    }
+    else if(pez!=nullptr)
+        archivo << cambio << "\n" << pez->getNombre() << "," << pez->getEdad() << "," << pez->getHambre() << "," << pez->getVida() << "," << pez->getNivelColorido() << "\n";
+    archivo.close();
 }
 //crearPerro, crearPez, y crearGato son casos de crear Mascotas que agrega nuevos metodos a Mascotas.txt
 void crearPerro() {
@@ -418,7 +428,7 @@ void alimentarMascotas() {
                 cout << "Colorido: " << tempPez->getNivelColorido() << endl;
                 cout << endl;
             }
-            nuevoTXT(wows->getNombre(), "Alimento", indice);
+            nuevoTXT(wows->getNombre(), "Alimento", indice-1);
         
         }
         else {

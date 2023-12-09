@@ -1,4 +1,4 @@
-Perro,Toby,5,69,65,88
+Perro,Toby,5,62,79,88
 Gato,Mimi,3,30,90,65
 Pez,Nemo,1,19,90,75
 Perro,Rex,8,35,55,90
